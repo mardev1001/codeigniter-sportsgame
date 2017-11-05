@@ -1,0 +1,64 @@
+// vegasfootballclub website app
+// 01-30-2017 Alan Gruskoff
+//
+'use strict';
+angular.module('vfcwebsite', [ 'ionic', 'vfcwebsite.controllers', 'ngStorage', 'ngRoute', 'ngResource' ])
+
+//
+// do ready time init work
+//
+.run(function($rootScope, $http, $localStorage, $state, $resource, $location) {
+
+// set the default timezone, if not yet set;
+  $rootScope.$storage = $localStorage;
+  $rootScope.$storage.IM_ID = "";
+  if (!$rootScope.$storage.TIMEZONE) {
+    $rootScope.$storage.TIMEZONE = "Pacific";
+  }
+  $rootScope.APIKEY = "&apiKey=jt2j7JYiV-uc7eefIautPVZwJATpPM3J";
+  $rootScope.type = "IM";
+  $rootScope.vids = "B";
+  $rootScope.site = "FOOTBALL";
+  $rootScope.hasProfile = false;
+    
+// get the current app version
+  $rootScope.APP_VERSION = "3.0.0";
+  var criteriaObject = 'q={"_id":"app"}&fo=true';
+  var ConfigCollection = $resource( 'https://api.mongolab.com/api/1/databases/vfcdbg/collections/config?' + criteriaObject + $rootScope.APIKEY);
+  ConfigCollection.get().$promise.then(
+    function(config_item) {
+        if ( config_item[0] == " " ) {
+          console.log("app.js - ConfigCollection bad read");
+          return false;
+        }
+        $rootScope.APP_VERSION = config_item.version;
+        console.log( "$rootScope.APP_VERSION:" + $rootScope.APP_VERSION );
+      },
+      function(reject) {
+        console.log("app.js - ConfigCollection reject");
+      }
+  );
+    
+// look for parameters passed in via the url after (?)
+  $rootScope.locationSearch = $location.$$search;
+  $rootScope.url_manager = $rootScope.locationSearch.manager;    
+})
+
+.config(function($routeProvider) {
+   $routeProvider
+     .when('/', {
+       templateUrl: 'templates/indexcontent.html',
+       controller: 'LoginCtrl'
+     })
+     .when('/home', {
+       templateUrl: 'templates/home.html',
+       controller: 'HomeCtrl'
+     })
+     .when('/appinstall', {
+       templateUrl: 'templates/appinstall.html',
+       controller: 'AppInstallCtrl'
+     })
+     .otherwise({
+		redirectTo: '/'
+	 });
+})

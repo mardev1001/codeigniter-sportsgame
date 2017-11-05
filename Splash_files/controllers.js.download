@@ -1,0 +1,182 @@
+angular.module('vfcwebsite.controllers', [ 'ngStorage', 'ngResource' ])
+/*
+vfcwebsite app
+01-30-2017 Alan Gruskoff
+*/
+//------------------------------------------------------------------------//
+//
+//    Login page
+//
+//------------------------------------------------------------------------//
+.controller('LoginCtrl', function($scope, $rootScope, $localStorage, $location, $resource) {
+
+    var _id = ""; var criteriaObject = "";
+    $rootScope.$storage = $localStorage;
+    $rootScope.vids = "B";
+    $scope.password_entry = $rootScope.$storage.IM_ID;  // populates the entry
+    document.getElementById("password").focus();
+
+	function id_ng() {
+		$rootScope.$storage.IM_ID = "";
+		$rootScope.vids = "B";
+        $rootScope.hasProfile = false;
+		alert("Invalid Password entry: " + _id);
+		document.getElementById("password").focus();
+		return false;
+	}
+
+    $scope.pwordSubmit = function() {
+        _id = $scope.password_entry.toLowerCase();
+        $scope.password_entry = _id;
+        if ( _id == "" ) {
+            alert('No Password was entered.');
+            id_ng();
+            return false;
+        }
+        getManager( _id );
+    }
+    
+    function getManager( _id ) {
+		criteriaObject = 'q={"im_id":"' + _id + '"}&fo=true';
+		var ManagersCollection = $resource( 'https://api.mongolab.com/api/1/databases/vfcdbg/collections/managers?' + criteriaObject + $rootScope.APIKEY);
+		ManagersCollection.get().$promise.then(
+			function(manager_item) {
+				var val = manager_item[1] +  manager_item[2] +  manager_item[3] +  manager_item[4];
+				if ( val == "null" ) {
+					id_ng();
+			    return false;
+				}
+
+				$rootScope.$storage.IM_ID = _id;
+				$rootScope.manager = manager_item;
+				$rootScope.$storage.TYPE = manager_item.type;
+				$rootScope.vids = manager_item.vids;
+				$rootScope.site = manager_item.site;
+
+				if ( $rootScope.site != "" ) {
+					if ( $rootScope.site == "BASKETBALL" ) {
+						window.location.href = 'http://vegasbasketballclub.com/#/';
+						return false;
+					}
+					if ( $rootScope.site == "BASEBALL" ) {
+						window.location.href = 'http://vegasbaseballclub.com/#/';
+						return false;
+					}
+					if ( $rootScope.site != "FOOTBALL" ) {
+						id_ng();
+						return false;
+					}
+				} else {
+					id_ng();
+					return false;
+				}
+
+				if ($rootScope.manager.type == "IM") {
+					$rootScope.manager.title = "Investment Manager";
+				}
+				if ($rootScope.manager.type == "SM") {
+					$rootScope.manager.title = "Settlement Manager";
+				}
+				if ($rootScope.manager.type == "SI") {
+					$rootScope.manager.title = "Senior Investment Manager";
+				}
+                if ($rootScope.manager.type == "SA") {
+					$rootScope.manager.title = "Sports Advisor";
+				}
+				if ($rootScope.manager.type == "SIA") {
+					$scope.manager.title = "Sports Investment Advisor";
+				}                
+				if ($rootScope.manager.type == "SIB") {
+					$scope.manager.title = "Sports Investment Broker";
+				}
+				if ($rootScope.manager.type == "MD") {
+					$rootScope.manager.title = "Managing Director";
+				}
+				if ($rootScope.manager.type == "CEO") {
+					$rootScope.manager.title = "CEO";
+				}
+
+                $rootScope.hasProfile = false;
+                if ($rootScope.manager.profile1 != "") {
+                    $rootScope.hasProfile = true;
+                }                
+                
+				$location.path('/home');
+				$rootScope.showMain = true;
+			},
+			function(reject) {
+				id_ng();
+				return false;
+			});
+	}
+    
+    if ( $rootScope.url_manager != null ) {
+        _id = $rootScope.url_manager;   
+        getManager( _id );
+    }
+})
+
+.controller('HomeCtrl', function($scope, $rootScope, $localStorage, $location) {
+    $location.$$search = "";
+	var myWindow = null;
+
+    $rootScope.$storage = $localStorage;
+    if ($rootScope.$storage.IM_ID == "") {
+        $location.path('/');
+        return false;
+    }
+    $scope.IM_ID = $rootScope.$storage.IM_ID;
+
+    $scope.watchVimeo = function() {
+		if ( $rootScope.vids == "A" ) {
+			myWindow = window.open("", "_blank");
+			myWindow.document.write(
+					'<iframe src="//player.vimeo.com/video/115533658" width="1024" height="768" frameborder="1" autoplay=1 webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
+		} else {
+			// default to the B video
+				myWindow = window.open("", "_blank");
+				myWindow.document.write(
+					'<iframe src="//player.vimeo.com/video/115531966" width="1024" height="768" frameborder="1" autoplay=1 webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
+		}
+	}
+
+  $scope.goVfcil = function() {
+	  var myWindow = window.open("", "_blank");
+ 	  myWindow.document.location = "http://digitalshowcase.biz/vfcil";
+  }
+  $scope.goIPS = function() {
+	  var myWindow = window.open("", "_blank");
+ 	  myWindow.document.location = "http://digitalshowcase.biz/vfcips";
+  }
+  $scope.showOurPicks = function() {
+	  var myWindow = window.open("http://tracktheactionrealtime.net", "_blank");
+  }
+  $scope.getApp = function() {
+	  var myWindow = window.open("", "_blank");
+ 	  myWindow.document.location = "https://build.phonegap.com/apps/1277090/share";
+  }
+  $scope.goAppInstall = function() {
+ 	  $location.path('/appinstall');
+  }
+})
+
+.controller('AppInstallCtrl', function($scope, $rootScope, $localStorage, $location) {
+
+	$rootScope.$storage = $localStorage;
+	if ($rootScope.$storage.IM_ID == "") {
+		$location.path('/');
+		return false;
+	}
+
+	$scope.IM_ID = $rootScope.$storage.IM_ID;
+
+  $scope.getAndroidApp = function() {
+	  var myWindow = window.open("", "_blank");
+ 	  myWindow.document.location = "https://build.phonegap.com/apps/1277090/share";
+  }
+
+  $scope.goWebApp = function() {
+	    var myWindow = window.open("http://tracktheactionrealtime.net", "_blank");
+  }
+
+})

@@ -1,0 +1,1 @@
+[17-Feb-2017 13:05:52 UTC] PHP Fatal error:  Using $this when not in object context in /home/vtaurusdev/public_html/vegas/splash/index.php on line 11

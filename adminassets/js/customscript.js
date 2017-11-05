@@ -826,7 +826,7 @@ function new_game(){
 }
 function send_login(){
 	 var base_url = window.location.origin;
-			  window.location.href = 'http://underdogkings.com/gamedetails/';
+			  window.location.href = '/gamedetails/';
 }
 function submit_form(form_id){
 	

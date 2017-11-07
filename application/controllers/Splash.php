@@ -9,6 +9,7 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
 		}
 		public function index()
  		  {
+			  echo 3434;die;
 			$url = $this->uri->segment(3);
 			$where =  array('splash_url'=>$url);
 			if(isset($url) && !empty($url))

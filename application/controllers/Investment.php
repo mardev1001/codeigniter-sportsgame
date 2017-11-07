@@ -124,7 +124,6 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
 		}
 	  public function editInvestment()
 		{
-			
 			$where = array('user_type'=>'investment'); 
 		    $data['result'] = $this->cmodel->select_where('register',$where);
 		    $data['countrows'] = $this->cmodel->count_where('register',$where);

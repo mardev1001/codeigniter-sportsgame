@@ -8,8 +8,7 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
 		  $this->load->model('Common_model','cmodel');
 		  }
 		public function index()
-		  {			
-			 
+		  {	
 			$this->load->view('underlogintrackview');
 			  
 		  }
@@ -24,7 +23,7 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
 			 else
 			 {
 				 $network_id = trim($this->input->post('networklogin'));
-				 $where = "network_id ='".$network_id."' OR uname='".$network_id."'";
+				 $where = "(network_id ='".$network_id."' OR uname='".$network_id."') AND site = '".NETWORK_TYPE."'";
 				 $select = 'network_id,fname,splash_url';
 				 $result = $this->cmodel->select_single_where('register',$where);
 				/* echo '<pre>'; print_R($result); echo '</pre>'; */

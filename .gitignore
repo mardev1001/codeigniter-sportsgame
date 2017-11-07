@@ -1,2 +1,2 @@
 system/*
-application/config/*
+application/config/**

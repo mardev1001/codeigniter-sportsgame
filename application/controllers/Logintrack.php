@@ -8,9 +8,10 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
 		  $this->load->model('Common_model','cmodel');
 		  }
 		public function index()
-		  {			
+		  {	
+			$site = $this->_getSite();
 			$url = $this->uri->segment(2);
-			$where =  array('splash_url'=>$url);
+			$where =  array('splash_url'=>$url, 'site' => $site);
 			if(isset($url) && !empty($url))
 			  {
 				$data['result'] = $this->cmodel->select_single_where('register',$where);

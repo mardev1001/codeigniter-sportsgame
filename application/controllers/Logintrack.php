@@ -27,6 +27,8 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
 		  }
 		  public function verifyTrack()
 		  {
+			 $url = $this->uri->segment(2);
+			 die($url);
 			 $this->form_validation->set_rules('networklogin','Password','required|trim');
 			 
 			 if($this->form_validation->run() == FALSE)

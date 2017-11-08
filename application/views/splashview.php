@@ -26,7 +26,7 @@ a {
 			$site = $result['site'];
 		if($site=='basketball')
 		{
-		 $logo = base_url().'Splash_files/UnderdogKings.jpg';			 
+		 $logo = base_url().'Splash_files/basketball.jpg';			 
 		}
 		else if($site=='football')
 		{

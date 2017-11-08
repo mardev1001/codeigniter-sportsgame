@@ -27,8 +27,7 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
 		  }
 		  public function verifyTrack()
 		  {
-			 $url = $this->uri->segment(2);
-			 die($url);
+			 $site = $this->_getSite();
 			 $this->form_validation->set_rules('networklogin','Password','required|trim');
 			 
 			 if($this->form_validation->run() == FALSE)
@@ -38,7 +37,7 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
 			 else
 			 {
 				 $network_id = trim($this->input->post('networklogin'));
-				 $where = "(network_id ='".$network_id."' OR uname='".$network_id."') AND site = '".NETWORK_TYPE."'";
+				 $where = "(network_id ='".$network_id."' OR uname='".$network_id."') AND site = '".$site."'";
 				 $select = 'network_id,fname,splash_url';
 				 $result = $this->cmodel->select_single_where('register',$where);
 				/* echo '<pre>'; print_R($result); echo '</pre>'; */
@@ -74,6 +73,13 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
 		  {
 			$this->session->sess_destroy();
             redirect(base_url('logintrack'));			
+		  }
+		  protected function _getSite()
+		  {
+			  $domain = $this->config->item('base_url');
+			  
+			  if(stripos($domain, 'underdogkings') !== false) return 'Underdog Kings';
+			  elseif(stripos($domain, 'basketball') !== false) return 'basketball';
 		  }
 	  
 }

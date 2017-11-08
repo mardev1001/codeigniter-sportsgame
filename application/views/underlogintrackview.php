@@ -1,3 +1,8 @@
+<?php
+	if($site == 'Underdog Kings') $logo = 'underdogkings.jpg';
+	elseif($site == 'basketball') $logo = 'basketball.jpg';
+	else $logo = 'underdogkings.jpg';
+?>
 <!DOCTYPE HTML>
 <html lang="en-US">
    <head>
@@ -18,7 +23,7 @@
    <body class="grade-a platform-browser platform-win32 platform-ready">
       <div ng-view="" class="">
          <div class="intro" style="width: 450px; margin-left: auto; margin-right: auto; padding: 0px 30px;">
-            <img src="<?php echo base_url('adminassets'); ?>/img/track300.jpg" width="450" height="250" alt="vfc" border="0">
+            <img src="<?php echo base_url('adminassets'); ?>/img/logo/<?php echo $logo ?>" width="450" height="250" alt="vfc" border="0">
             <p class="intro" style="text-align:center;"></p>
             <div class="LightGreenPanel" style="padding-top:0px; padding-bottom:2px;">
 			<?php echo form_open(base_url('underdoglogin/verifyTrack') ,array('class'=>'ng-pristine ng-valid')); ?>

@@ -15,7 +15,7 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
 				 $where  = array('network_id'=>$id);
 			     $data['sess_data'] = $this->session->userdata('networkid');
 				 $limit = 1;
-				 $order_by = '`id`  DESC';
+				 $order_by = '`fbet_date` DESC';
 				 $data['result'] = $this->cmodel->select_orderby('financial',$order_by); 
 				 $data['singleresult'] = $this->cmodel->select_orderby_limit('financial',$order_by,$limit);
 				 $this->load->view('averageprofitview',$data);

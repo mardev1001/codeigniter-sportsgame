@@ -451,7 +451,7 @@ class Gamedetails extends CI_Controller
 				/***** Red Last 4 Year ***/
 				$lostredwherelast4_year = 'convert(`bet_value`,decimal)>="-110" AND `game_result` = "LOST" AND (`bet_year` < "'.$check_current_date["year"].'" || `bet_day` <= "'.$bet_day.'")';
 				$redlostresultlast4_year = $this->cmodel->select_countwhere('game',$countlost_result,$lostredwherelast4_year);
-				$wonredwherelast4_year = 'convert(`bet_value`,decimal)>="-110" AND `game_result` = "WON" AND `bet_day` <= "'.$bet_day.'" AND (`bet_year` < "'.$check_current_date["year"].'" || `bet_day` <= "'.$bet_day.'")';
+				$wonredwherelast4_year = 'convert(`bet_value`,decimal)>="-110" AND `game_result` = "WON" AND (`bet_year` < "'.$check_current_date["year"].'" || `bet_day` <= "'.$bet_day.'")';
 				$redwonlostresultlast4_year = $this->cmodel->select_countwhere('game',$countwon_result,$wonredwherelast4_year);
 				if(is_array($redwonlostresultlast4_year))
 				{ 
@@ -467,7 +467,7 @@ class Gamedetails extends CI_Controller
 				else{
 				$redlostresult4_last_year ="";
 				} 
-				$totalredgamelast4_year  = 'convert(`bet_value`,decimal)>="-110"  AND `bet_day` <= "'.$bet_day.'" AND game_result!="PUSH" AND  game_result!="" AND (`bet_year` < "'.$check_current_date["year"].'" || `bet_day` <= "'.$bet_day.'")';
+				$totalredgamelast4_year  = 'convert(`bet_value`,decimal)>="-110" AND game_result!="PUSH" AND  game_result!="" AND (`bet_year` < "'.$check_current_date["year"].'" || `bet_day` <= "'.$bet_day.'")';
 				$totalredresultlast4_year = $this->cmodel->select_countwhere('game',$counttotal_result,$totalredgamelast4_year);
 				/* 	$total_blue_played 	   = isset($totalblue['COUNT(game_result)']); */
 				$total_red_played_fix4 = $totalredresultlast4_year['COUNT(game_result)'];
@@ -1125,7 +1125,7 @@ class Gamedetails extends CI_Controller
 		/***** Red Last 4 Year ***/
 		$lostredwherelast4_year = 'convert(`bet_value`,decimal)>="-110" AND `game_result` = "LOST" AND (`bet_year` < "'.$bet_details["year"].'" || `bet_day` <= "'.$bet_day.'")';
 		$redlostresultlast4_year = $this->cmodel->select_countwhere('game',$countlost_result,$lostredwherelast4_year);
-		$wonredwherelast4_year = 'convert(`bet_value`,decimal)>="-110" AND `game_result` = "WON" AND `bet_day` <= "'.$bet_day.'" AND (`bet_year` < "'.$bet_details["year"].'" || `bet_day` <= "'.$bet_day.'")';
+		$wonredwherelast4_year = 'convert(`bet_value`,decimal)>="-110" AND `game_result` = "WON" AND (`bet_year` < "'.$bet_details["year"].'" || `bet_day` <= "'.$bet_day.'")';
 		$redwonlostresultlast4_year = $this->cmodel->select_countwhere('game',$countwon_result,$wonredwherelast4_year);
 		if(is_array($redwonlostresultlast4_year))
 		{ 
@@ -1141,7 +1141,7 @@ class Gamedetails extends CI_Controller
 		else{
 		$redlostresult4_last_year ="";
 		} 
-		$totalredgamelast4_year  = 'convert(`bet_value`,decimal)>="-110"  AND `bet_day` <= "'.$bet_day.'" AND game_result!="PUSH" AND  game_result!="" AND (`bet_year` < "'.$bet_details["year"].'" || `bet_day` <= "'.$bet_day.'")';
+		$totalredgamelast4_year  = 'convert(`bet_value`,decimal)>="-110" AND game_result!="PUSH" AND  game_result!="" AND (`bet_year` < "'.$bet_details["year"].'" || `bet_day` <= "'.$bet_day.'")';
 		$totalredresultlast4_year = $this->cmodel->select_countwhere('game',$counttotal_result,$totalredgamelast4_year);
 		/* 	$total_blue_played 	   = isset($totalblue['COUNT(game_result)']); */
 		$total_red_played_fix4 = $totalredresultlast4_year['COUNT(game_result)'];

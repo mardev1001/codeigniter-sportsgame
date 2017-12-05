@@ -39,11 +39,15 @@
 							{
 								foreach($result as $row)
 								{
+									$bet_day = $row['fbet_date'];
+									$year = date('y', strtotime($bet_day));
+									$month = date('m', strtotime($bet_day));
+									$bet_year = ($month >= 9) ? $year+1 : $year;
 								?>
 							  <tr>
-								<td><?php echo date('y',strtotime($row['fbet_year'])); ?></td>
+								<td><?php echo $bet_year ?></td>
 								 <td><?php echo $row['fbet_day']; ?></td>
-								 <td><?php echo date('m-d',strtotime($row['fbet_year'])); ?></td>
+								 <td><?php echo date('m-d',strtotime($row['fbet_date'])); ?></td>
 								<td><?php echo $row['avg_profit_bet']>0?'+'.$row['avg_profit_bet'].'%':$row['avg_profit_bet'].'%'; ?></td>
 								<td><?php echo $row['fleague']; ?></td>
 							  </tr>

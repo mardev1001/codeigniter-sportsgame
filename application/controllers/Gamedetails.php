@@ -55,7 +55,9 @@ class Gamedetails extends CI_Controller
 	/*  			 echo '<pre>';print_R($data['bet_day_q']);echo'</pre>';
 	 */ 		 $countwon_result = 'COUNT(*) as WON';
 				 $countlost_result = 'COUNT(*) as LOST';
+				 $countpush_result = 'COUNT(*) as PUSH';
 				 $counttotal_result = 'COUNT(game_result)';
+				 
 			
 				/*blue section start*/
 		

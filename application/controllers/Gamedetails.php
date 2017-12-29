@@ -479,7 +479,9 @@ class Gamedetails extends CI_Controller
 				$redpercentage_fix4 	   =  "0";
 				}
 				/***** Red End Last 4 Year ***/
-				 $nextview_details = $this->cmodel->select_with_limit_where('betgame',$wherenextview_2,' `bet_year` ASC  ','1');
+				
+				$wherenextview_2 = '`bet_year` > "'.date('Y-m-d').'"';
+				$nextview_details = $this->cmodel->select_with_limit_where('betgame',$wherenextview_2,' `bet_year` ASC  ','1');
 				/* echo $this->db->last_query(); */
 				if(is_array($nextview_details)){
 				  $data['nextview_html'] = $nextview_details;

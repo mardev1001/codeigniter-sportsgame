@@ -479,7 +479,8 @@ class Gamedetails extends CI_Controller
 				$redpercentage_fix4 	   =  "0";
 				}
 				/***** Red End Last 4 Year ***/
-				
+				$wherepreview_2 = '`bet_year` < "'.date('Y-m-d').'"'; 
+				$preview_details = $this->cmodel->select_with_limit_where('betgame',$wherepreview_2,' `bet_year` DESC ','1');
 				$wherenextview_2 = '`bet_year` > "'.date('Y-m-d').'"';
 				$nextview_details = $this->cmodel->select_with_limit_where('betgame',$wherenextview_2,' `bet_year` ASC  ','1');
 				/* echo $this->db->last_query(); */
@@ -488,7 +489,7 @@ class Gamedetails extends CI_Controller
 				 }else{
 					  $data['nextview_html'] ='';
 				 }
-				/* 
+				 
 				if(is_array($preview_details)){
 				  $data['preview_html'] = $preview_details['id'];
 				 }else{
@@ -549,7 +550,7 @@ class Gamedetails extends CI_Controller
 					}
 				}
 				$data['bets'] = array_reverse($bets);
-				*/
+				
 				
 					/* $this->load->view('gamedetailsview',$data); */
 				/*red section end*/

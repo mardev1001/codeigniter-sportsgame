@@ -488,6 +488,7 @@ class Gamedetails extends CI_Controller
 				 }else{
 					  $data['nextview_html'] ='';
 				 }
+				/* 
 				if(is_array($preview_details)){
 				  $data['preview_html'] = $preview_details['id'];
 				 }else{
@@ -548,7 +549,7 @@ class Gamedetails extends CI_Controller
 					}
 				}
 				$data['bets'] = array_reverse($bets);
-				
+				*/
 				
 					/* $this->load->view('gamedetailsview',$data); */
 				/*red section end*/
